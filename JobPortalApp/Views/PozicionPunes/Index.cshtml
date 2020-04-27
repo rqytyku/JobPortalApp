@@ -1,0 +1,67 @@
+﻿@model IEnumerable<JobPortalApp.Models.PozicionPune>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Pozicionet e punes</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #EBF5FB 
+    }
+
+    th {
+        background-color: #5DADE2 ;
+        color: white;
+    }
+</style>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Emri_Poz)
+        </th>
+    
+        <th>
+            @Html.DisplayNameFor(model => model.Kompania.Emri)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Emri_Poz)
+    </td>
+    
+    <td>
+        @Html.DisplayFor(modelItem => item.Kompania.Emri)
+    </td>
+    <td>
+
+        @Html.ActionLink("Detajet e pozicionit", "Details", new { id = item.Id_Pozicion })
+        
+    </td>
+    <td>
+        <input type="button" class="btn btn-info" value="Apliko! " onclick='window.location.href = "@Url.Action("Create", "Aplikims")"'/>
+        
+    </td>
+    
+</tr>
+}
+
+</table>

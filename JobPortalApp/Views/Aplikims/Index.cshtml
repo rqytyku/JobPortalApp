@@ -1,0 +1,62 @@
+﻿@model IEnumerable<JobPortalApp.Models.Aplikim>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Aplikimet e mia</h2>
+
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #ffedee }
+
+th {
+  background-color: #DC143C;
+  color: white;
+}
+</style>
+
+<table class="table">
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Orari)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kompania.Emri)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PozicionPune.Emri_Poz)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Orari)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kompania.Emri)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PozicionPune.Emri_Poz)
+        </td>
+        <td>
+
+            @Html.ActionLink("Shiko aplikimin", "Details", new { id=item.Id_Aplikim})
+
+        </td>
+    </tr>
+}
+
+</table>

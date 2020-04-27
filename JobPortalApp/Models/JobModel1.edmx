@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="JobPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aplikim">
+          <Key>
+            <PropertyRef Name="Id_Aplikim" />
+          </Key>
+          <Property Name="Id_Aplikim" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pozc_Id" Type="int" />
+          <Property Name="Komp_Id" Type="int" />
+          <Property Name="Orari" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Aplikuesi">
+          <Key>
+            <PropertyRef Name="Perd_ID" />
+          </Key>
+          <Property Name="Perd_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emri" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mbiemeri" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nr_Kontakti" Type="int" Nullable="false" />
+          <Property Name="Adresa" Type="varchar" MaxLength="50" />
+          <Property Name="Roli_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Kompania">
+          <Key>
+            <PropertyRef Name="ID_Kompani" />
+          </Key>
+          <Property Name="ID_Kompani" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emri" Type="varchar" MaxLength="100" />
+          <Property Name="Tipi_ID" Type="int" />
+          <Property Name="Adresa" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Lloji">
+          <Key>
+            <PropertyRef Name="Lloji_Id" />
+          </Key>
+          <Property Name="Lloji_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tipi" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PozicionPune">
+          <Key>
+            <PropertyRef Name="Id_Pozicion" />
+          </Key>
+          <Property Name="Id_Pozicion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emri_Poz" Type="varchar" MaxLength="150" />
+          <Property Name="Tipi" Type="varchar" MaxLength="15" />
+          <Property Name="ID_Kompanie" Type="int" />
+        </EntityType>
+        <EntityType Name="Rezervim">
+          <Key>
+            <PropertyRef Name="ID_Rezervim" />
+          </Key>
+          <Property Name="ID_Rezervim" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Pozicion" Type="int" />
+          <Property Name="ID_Aplikimi" Type="int" />
+          <Property Name="Anulluar" Type="bit" />
+          <Property Name="ID_Perdorues" Type="int" />
+        </EntityType>
+        <EntityType Name="ROLI">
+          <Key>
+            <PropertyRef Name="Id_Roli" />
+          </Key>
+          <Property Name="Id_Roli" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emri" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__Aplikim__Komp_Id__2C3393D0">
+          <End Role="Kompania" Type="Self.Kompania" Multiplicity="0..1" />
+          <End Role="Aplikim" Type="Self.Aplikim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kompania">
+              <PropertyRef Name="ID_Kompani" />
+            </Principal>
+            <Dependent Role="Aplikim">
+              <PropertyRef Name="Komp_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Aplikim__Pozc_Id__2B3F6F97">
+          <End Role="PozicionPune" Type="Self.PozicionPune" Multiplicity="0..1" />
+          <End Role="Aplikim" Type="Self.Aplikim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PozicionPune">
+              <PropertyRef Name="Id_Pozicion" />
+            </Principal>
+            <Dependent Role="Aplikim">
+              <PropertyRef Name="Pozc_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Aplikuesi__Roli___32E0915F">
+          <End Role="ROLI" Type="Self.ROLI" Multiplicity="0..1" />
+          <End Role="Aplikuesi" Type="Self.Aplikuesi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLI">
+              <PropertyRef Name="Id_Roli" />
+            </Principal>
+            <Dependent Role="Aplikuesi">
+              <PropertyRef Name="Roli_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Kompania__Tipi_I__267ABA7A">
+          <End Role="Lloji" Type="Self.Lloji" Multiplicity="0..1" />
+          <End Role="Kompania" Type="Self.Kompania" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lloji">
+              <PropertyRef Name="Lloji_Id" />
+            </Principal>
+            <Dependent Role="Kompania">
+              <PropertyRef Name="Tipi_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PozicionP__ID_Ko__47DBAE45">
+          <End Role="Kompania" Type="Self.Kompania" Multiplicity="0..1" />
+          <End Role="PozicionPune" Type="Self.PozicionPune" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kompania">
+              <PropertyRef Name="ID_Kompani" />
+            </Principal>
+            <Dependent Role="PozicionPune">
+              <PropertyRef Name="ID_Kompanie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rezervim__ID_Apl__36B12243">
+          <End Role="Aplikim" Type="Self.Aplikim" Multiplicity="0..1" />
+          <End Role="Rezervim" Type="Self.Rezervim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplikim">
+              <PropertyRef Name="Id_Aplikim" />
+            </Principal>
+            <Dependent Role="Rezervim">
+              <PropertyRef Name="ID_Aplikimi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rezervim__ID_Per__4222D4EF">
+          <End Role="Aplikuesi" Type="Self.Aplikuesi" Multiplicity="0..1" />
+          <End Role="Rezervim" Type="Self.Rezervim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplikuesi">
+              <PropertyRef Name="Perd_ID" />
+            </Principal>
+            <Dependent Role="Rezervim">
+              <PropertyRef Name="ID_Perdorues" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rezervim__ID_Poz__35BCFE0A">
+          <End Role="PozicionPune" Type="Self.PozicionPune" Multiplicity="0..1" />
+          <End Role="Rezervim" Type="Self.Rezervim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PozicionPune">
+              <PropertyRef Name="Id_Pozicion" />
+            </Principal>
+            <Dependent Role="Rezervim">
+              <PropertyRef Name="ID_Pozicion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JobPortalModelStoreContainer">
+          <EntitySet Name="Aplikim" EntityType="Self.Aplikim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Aplikuesi" EntityType="Self.Aplikuesi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kompania" EntityType="Self.Kompania" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lloji" EntityType="Self.Lloji" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PozicionPune" EntityType="Self.PozicionPune" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rezervim" EntityType="Self.Rezervim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLI" EntityType="Self.ROLI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Aplikim__Komp_Id__2C3393D0" Association="Self.FK__Aplikim__Komp_Id__2C3393D0">
+            <End Role="Kompania" EntitySet="Kompania" />
+            <End Role="Aplikim" EntitySet="Aplikim" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Aplikim__Pozc_Id__2B3F6F97" Association="Self.FK__Aplikim__Pozc_Id__2B3F6F97">
+            <End Role="PozicionPune" EntitySet="PozicionPune" />
+            <End Role="Aplikim" EntitySet="Aplikim" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Aplikuesi__Roli___32E0915F" Association="Self.FK__Aplikuesi__Roli___32E0915F">
+            <End Role="ROLI" EntitySet="ROLI" />
+            <End Role="Aplikuesi" EntitySet="Aplikuesi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Kompania__Tipi_I__267ABA7A" Association="Self.FK__Kompania__Tipi_I__267ABA7A">
+            <End Role="Lloji" EntitySet="Lloji" />
+            <End Role="Kompania" EntitySet="Kompania" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PozicionP__ID_Ko__47DBAE45" Association="Self.FK__PozicionP__ID_Ko__47DBAE45">
+            <End Role="Kompania" EntitySet="Kompania" />
+            <End Role="PozicionPune" EntitySet="PozicionPune" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rezervim__ID_Apl__36B12243" Association="Self.FK__Rezervim__ID_Apl__36B12243">
+            <End Role="Aplikim" EntitySet="Aplikim" />
+            <End Role="Rezervim" EntitySet="Rezervim" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rezervim__ID_Per__4222D4EF" Association="Self.FK__Rezervim__ID_Per__4222D4EF">
+            <End Role="Aplikuesi" EntitySet="Aplikuesi" />
+            <End Role="Rezervim" EntitySet="Rezervim" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rezervim__ID_Poz__35BCFE0A" Association="Self.FK__Rezervim__ID_Poz__35BCFE0A">
+            <End Role="PozicionPune" EntitySet="PozicionPune" />
+            <End Role="Rezervim" EntitySet="Rezervim" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JobPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Aplikim">
+          <Key>
+            <PropertyRef Name="Id_Aplikim" />
+          </Key>
+          <Property Name="Id_Aplikim" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pozc_Id" Type="Int32" />
+          <Property Name="Komp_Id" Type="Int32" />
+          <Property Name="Orari" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Kompania" Relationship="Self.FK__Aplikim__Komp_Id__2C3393D0" FromRole="Aplikim" ToRole="Kompania" />
+          <NavigationProperty Name="PozicionPune" Relationship="Self.FK__Aplikim__Pozc_Id__2B3F6F97" FromRole="Aplikim" ToRole="PozicionPune" />
+          <NavigationProperty Name="Rezervims" Relationship="Self.FK__Rezervim__ID_Apl__36B12243" FromRole="Aplikim" ToRole="Rezervim" />
+        </EntityType>
+        <EntityType Name="Aplikuesi">
+          <Key>
+            <PropertyRef Name="Perd_ID" />
+          </Key>
+          <Property Name="Perd_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emri" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mbiemeri" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nr_Kontakti" Type="Int32" Nullable="false" />
+          <Property Name="Adresa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Roli_ID" Type="Int32" />
+          <NavigationProperty Name="ROLI" Relationship="Self.FK__Aplikuesi__Roli___32E0915F" FromRole="Aplikuesi" ToRole="ROLI" />
+          <NavigationProperty Name="Rezervims" Relationship="Self.FK__Rezervim__ID_Per__4222D4EF" FromRole="Aplikuesi" ToRole="Rezervim" />
+        </EntityType>
+        <EntityType Name="Kompania">
+          <Key>
+            <PropertyRef Name="ID_Kompani" />
+          </Key>
+          <Property Name="ID_Kompani" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emri" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Tipi_ID" Type="Int32" />
+          <Property Name="Adresa" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Aplikims" Relationship="Self.FK__Aplikim__Komp_Id__2C3393D0" FromRole="Kompania" ToRole="Aplikim" />
+          <NavigationProperty Name="Lloji" Relationship="Self.FK__Kompania__Tipi_I__267ABA7A" FromRole="Kompania" ToRole="Lloji" />
+          <NavigationProperty Name="PozicionPunes" Relationship="Self.FK__PozicionP__ID_Ko__47DBAE45" FromRole="Kompania" ToRole="PozicionPune" />
+        </EntityType>
+        <EntityType Name="Lloji">
+          <Key>
+            <PropertyRef Name="Lloji_Id" />
+          </Key>
+          <Property Name="Lloji_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Kompanias" Relationship="Self.FK__Kompania__Tipi_I__267ABA7A" FromRole="Lloji" ToRole="Kompania" />
+        </EntityType>
+        <EntityType Name="PozicionPune">
+          <Key>
+            <PropertyRef Name="Id_Pozicion" />
+          </Key>
+          <Property Name="Id_Pozicion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emri_Poz" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Tipi" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Kompanie" Type="Int32" />
+          <NavigationProperty Name="Aplikims" Relationship="Self.FK__Aplikim__Pozc_Id__2B3F6F97" FromRole="PozicionPune" ToRole="Aplikim" />
+          <NavigationProperty Name="Kompania" Relationship="Self.FK__PozicionP__ID_Ko__47DBAE45" FromRole="PozicionPune" ToRole="Kompania" />
+          <NavigationProperty Name="Rezervims" Relationship="Self.FK__Rezervim__ID_Poz__35BCFE0A" FromRole="PozicionPune" ToRole="Rezervim" />
+        </EntityType>
+        <EntityType Name="Rezervim">
+          <Key>
+            <PropertyRef Name="ID_Rezervim" />
+          </Key>
+          <Property Name="ID_Rezervim" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Pozicion" Type="Int32" />
+          <Property Name="ID_Aplikimi" Type="Int32" />
+          <Property Name="Anulluar" Type="Boolean" />
+          <Property Name="ID_Perdorues" Type="Int32" />
+          <NavigationProperty Name="Aplikim" Relationship="Self.FK__Rezervim__ID_Apl__36B12243" FromRole="Rezervim" ToRole="Aplikim" />
+          <NavigationProperty Name="Aplikuesi" Relationship="Self.FK__Rezervim__ID_Per__4222D4EF" FromRole="Rezervim" ToRole="Aplikuesi" />
+          <NavigationProperty Name="PozicionPune" Relationship="Self.FK__Rezervim__ID_Poz__35BCFE0A" FromRole="Rezervim" ToRole="PozicionPune" />
+        </EntityType>
+        <EntityType Name="ROLI">
+          <Key>
+            <PropertyRef Name="Id_Roli" />
+          </Key>
+          <Property Name="Id_Roli" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emri" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Aplikuesis" Relationship="Self.FK__Aplikuesi__Roli___32E0915F" FromRole="ROLI" ToRole="Aplikuesi" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Aplikim__Komp_Id__2C3393D0">
+          <End Role="Kompania" Type="Self.Kompania" Multiplicity="0..1" />
+          <End Role="Aplikim" Type="Self.Aplikim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kompania">
+              <PropertyRef Name="ID_Kompani" />
+            </Principal>
+            <Dependent Role="Aplikim">
+              <PropertyRef Name="Komp_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Aplikim__Pozc_Id__2B3F6F97">
+          <End Role="PozicionPune" Type="Self.PozicionPune" Multiplicity="0..1" />
+          <End Role="Aplikim" Type="Self.Aplikim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PozicionPune">
+              <PropertyRef Name="Id_Pozicion" />
+            </Principal>
+            <Dependent Role="Aplikim">
+              <PropertyRef Name="Pozc_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rezervim__ID_Apl__36B12243">
+          <End Role="Aplikim" Type="Self.Aplikim" Multiplicity="0..1" />
+          <End Role="Rezervim" Type="Self.Rezervim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplikim">
+              <PropertyRef Name="Id_Aplikim" />
+            </Principal>
+            <Dependent Role="Rezervim">
+              <PropertyRef Name="ID_Aplikimi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Aplikuesi__Roli___32E0915F">
+          <End Role="ROLI" Type="Self.ROLI" Multiplicity="0..1" />
+          <End Role="Aplikuesi" Type="Self.Aplikuesi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLI">
+              <PropertyRef Name="Id_Roli" />
+            </Principal>
+            <Dependent Role="Aplikuesi">
+              <PropertyRef Name="Roli_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rezervim__ID_Per__4222D4EF">
+          <End Role="Aplikuesi" Type="Self.Aplikuesi" Multiplicity="0..1" />
+          <End Role="Rezervim" Type="Self.Rezervim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplikuesi">
+              <PropertyRef Name="Perd_ID" />
+            </Principal>
+            <Dependent Role="Rezervim">
+              <PropertyRef Name="ID_Perdorues" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Kompania__Tipi_I__267ABA7A">
+          <End Role="Lloji" Type="Self.Lloji" Multiplicity="0..1" />
+          <End Role="Kompania" Type="Self.Kompania" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lloji">
+              <PropertyRef Name="Lloji_Id" />
+            </Principal>
+            <Dependent Role="Kompania">
+              <PropertyRef Name="Tipi_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PozicionP__ID_Ko__47DBAE45">
+          <End Role="Kompania" Type="Self.Kompania" Multiplicity="0..1" />
+          <End Role="PozicionPune" Type="Self.PozicionPune" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kompania">
+              <PropertyRef Name="ID_Kompani" />
+            </Principal>
+            <Dependent Role="PozicionPune">
+              <PropertyRef Name="ID_Kompanie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rezervim__ID_Poz__35BCFE0A">
+          <End Role="PozicionPune" Type="Self.PozicionPune" Multiplicity="0..1" />
+          <End Role="Rezervim" Type="Self.Rezervim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PozicionPune">
+              <PropertyRef Name="Id_Pozicion" />
+            </Principal>
+            <Dependent Role="Rezervim">
+              <PropertyRef Name="ID_Pozicion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JobPortalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Aplikims" EntityType="Self.Aplikim" />
+          <EntitySet Name="Aplikuesis" EntityType="Self.Aplikuesi" />
+          <EntitySet Name="Kompanias" EntityType="Self.Kompania" />
+          <EntitySet Name="Llojis" EntityType="Self.Lloji" />
+          <EntitySet Name="PozicionPunes" EntityType="Self.PozicionPune" />
+          <EntitySet Name="Rezervims" EntityType="Self.Rezervim" />
+          <EntitySet Name="ROLIs" EntityType="Self.ROLI" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK__Aplikim__Komp_Id__2C3393D0" Association="Self.FK__Aplikim__Komp_Id__2C3393D0">
+            <End Role="Kompania" EntitySet="Kompanias" />
+            <End Role="Aplikim" EntitySet="Aplikims" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Aplikim__Pozc_Id__2B3F6F97" Association="Self.FK__Aplikim__Pozc_Id__2B3F6F97">
+            <End Role="PozicionPune" EntitySet="PozicionPunes" />
+            <End Role="Aplikim" EntitySet="Aplikims" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rezervim__ID_Apl__36B12243" Association="Self.FK__Rezervim__ID_Apl__36B12243">
+            <End Role="Aplikim" EntitySet="Aplikims" />
+            <End Role="Rezervim" EntitySet="Rezervims" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Aplikuesi__Roli___32E0915F" Association="Self.FK__Aplikuesi__Roli___32E0915F">
+            <End Role="ROLI" EntitySet="ROLIs" />
+            <End Role="Aplikuesi" EntitySet="Aplikuesis" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rezervim__ID_Per__4222D4EF" Association="Self.FK__Rezervim__ID_Per__4222D4EF">
+            <End Role="Aplikuesi" EntitySet="Aplikuesis" />
+            <End Role="Rezervim" EntitySet="Rezervims" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Kompania__Tipi_I__267ABA7A" Association="Self.FK__Kompania__Tipi_I__267ABA7A">
+            <End Role="Lloji" EntitySet="Llojis" />
+            <End Role="Kompania" EntitySet="Kompanias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PozicionP__ID_Ko__47DBAE45" Association="Self.FK__PozicionP__ID_Ko__47DBAE45">
+            <End Role="Kompania" EntitySet="Kompanias" />
+            <End Role="PozicionPune" EntitySet="PozicionPunes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rezervim__ID_Poz__35BCFE0A" Association="Self.FK__Rezervim__ID_Poz__35BCFE0A">
+            <End Role="PozicionPune" EntitySet="PozicionPunes" />
+            <End Role="Rezervim" EntitySet="Rezervims" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JobPortalModelStoreContainer" CdmEntityContainer="JobPortalEntities">
+          <EntitySetMapping Name="Aplikims">
+            <EntityTypeMapping TypeName="JobPortalModel.Aplikim">
+              <MappingFragment StoreEntitySet="Aplikim">
+                <ScalarProperty Name="Id_Aplikim" ColumnName="Id_Aplikim" />
+                <ScalarProperty Name="Pozc_Id" ColumnName="Pozc_Id" />
+                <ScalarProperty Name="Komp_Id" ColumnName="Komp_Id" />
+                <ScalarProperty Name="Orari" ColumnName="Orari" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Aplikuesis">
+            <EntityTypeMapping TypeName="JobPortalModel.Aplikuesi">
+              <MappingFragment StoreEntitySet="Aplikuesi">
+                <ScalarProperty Name="Perd_ID" ColumnName="Perd_ID" />
+                <ScalarProperty Name="Emri" ColumnName="Emri" />
+                <ScalarProperty Name="Mbiemeri" ColumnName="Mbiemeri" />
+                <ScalarProperty Name="Nr_Kontakti" ColumnName="Nr_Kontakti" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+                <ScalarProperty Name="Roli_ID" ColumnName="Roli_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kompanias">
+            <EntityTypeMapping TypeName="JobPortalModel.Kompania">
+              <MappingFragment StoreEntitySet="Kompania">
+                <ScalarProperty Name="ID_Kompani" ColumnName="ID_Kompani" />
+                <ScalarProperty Name="Emri" ColumnName="Emri" />
+                <ScalarProperty Name="Tipi_ID" ColumnName="Tipi_ID" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Llojis">
+            <EntityTypeMapping TypeName="JobPortalModel.Lloji">
+              <MappingFragment StoreEntitySet="Lloji">
+                <ScalarProperty Name="Lloji_Id" ColumnName="Lloji_Id" />
+                <ScalarProperty Name="Tipi" ColumnName="Tipi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PozicionPunes">
+            <EntityTypeMapping TypeName="JobPortalModel.PozicionPune">
+              <MappingFragment StoreEntitySet="PozicionPune">
+                <ScalarProperty Name="Id_Pozicion" ColumnName="Id_Pozicion" />
+                <ScalarProperty Name="Emri_Poz" ColumnName="Emri_Poz" />
+                <ScalarProperty Name="Tipi" ColumnName="Tipi" />
+                <ScalarProperty Name="ID_Kompanie" ColumnName="ID_Kompanie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rezervims">
+            <EntityTypeMapping TypeName="JobPortalModel.Rezervim">
+              <MappingFragment StoreEntitySet="Rezervim">
+                <ScalarProperty Name="ID_Rezervim" ColumnName="ID_Rezervim" />
+                <ScalarProperty Name="ID_Pozicion" ColumnName="ID_Pozicion" />
+                <ScalarProperty Name="ID_Aplikimi" ColumnName="ID_Aplikimi" />
+                <ScalarProperty Name="Anulluar" ColumnName="Anulluar" />
+                <ScalarProperty Name="ID_Perdorues" ColumnName="ID_Perdorues" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLIs">
+            <EntityTypeMapping TypeName="JobPortalModel.ROLI">
+              <MappingFragment StoreEntitySet="ROLI">
+                <ScalarProperty Name="Id_Roli" ColumnName="Id_Roli" />
+                <ScalarProperty Name="Emri" ColumnName="Emri" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="JobPortalModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

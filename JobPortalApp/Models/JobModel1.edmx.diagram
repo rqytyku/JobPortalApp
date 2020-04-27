@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0ebcadac674446dd88f63ba808be0993" Name="Diagram1">
+        <EntityTypeShape EntityType="JobPortalModel.Aplikim" Width="1.5" PointX="7.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobPortalModel.Aplikuesi" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobPortalModel.Kompania" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobPortalModel.Lloji" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobPortalModel.PozicionPune" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobPortalModel.Rezervim" Width="1.5" PointX="9.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobPortalModel.ROLI" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobPortalModel.sysdiagram" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="JobPortalModel.FK__Aplikim__Komp_Id__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="JobPortalModel.FK__Aplikim__Pozc_Id__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="JobPortalModel.FK__Rezervim__ID_Apl__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="JobPortalModel.FK__Aplikuesi__Roli___32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="JobPortalModel.FK__Rezervim__ID_Per__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="JobPortalModel.FK__Kompania__Tipi_I__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="JobPortalModel.FK__PozicionP__ID_Ko__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="JobPortalModel.FK__Rezervim__ID_Poz__35BCFE0A" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
